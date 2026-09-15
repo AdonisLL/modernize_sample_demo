@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "database": {
+    "instance": "(localdb)\\MSSQLLocalDB",
+    "name": "ContosoLegacyBank"
+  },
+  "paths": {
+    "documentRoot": "%LOCALAPPDATA%\\ContosoLegacyBank\\Documents",
+    "batchRoot": "%LOCALAPPDATA%\\ContosoLegacyBank\\Batch"
+  },
+  "components": [
+    {
+      "name": "accounts",
+      "path": "apps\\contoso-legacy-bank-accounts",
+      "revision": "5a0d4684dcfc00d8f9d5f5cba2f3999bc0d16e51",
+      "port": 8090,
+      "endpoint": "http://localhost:8090/AccountService",
+      "startProject": "apps\\contoso-legacy-bank-accounts\\src\\Contoso.LegacyBank.Accounts.ServiceHost\\bin\\Release\\Contoso.LegacyBank.Accounts.ServiceHost.exe"
+    },
+    {
+      "name": "documents",
+      "path": "apps\\contoso-legacy-bank-documents",
+      "revision": "21e0f0813ffdb9690fadbd59ff16e887a8a4c625",
+      "port": null,
+      "endpoint": null,
+      "startProject": "apps\\contoso-legacy-bank-documents\\src\\Contoso.LegacyBank.Documents\\bin\\Release\\Contoso.LegacyBank.Documents.exe"
+    },
+    {
+      "name": "statements",
+      "path": "apps\\contoso-legacy-bank-statements",
+      "revision": "812d5a63f219fbce79aef22295ea8acdf809b7f4",
+      "port": 8091,
+      "endpoint": "http://localhost:8091/api/statements",
+      "startProject": "apps\\contoso-legacy-bank-statements\\src\\Contoso.LegacyBank.Statements.Api"
+    },
+    {
+      "name": "portal",
+      "path": "apps\\contoso-legacy-bank-portal",
+      "revision": "edb272d52ade1df20d464e8dfd5d8b662b5b45e2",
+      "port": null,
+      "endpoint": null,
+      "startProject": "apps\\contoso-legacy-bank-portal\\src\\Contoso.LegacyBank.Portal\\bin\\Release\\Contoso.LegacyBank.Portal.exe"
+    },
+    {
+      "name": "batch",
+      "path": "apps\\contoso-legacy-bank-batch",
+      "revision": "90fa2d0be31338a0e9201b1bf55d85caa2c53c5f",
+      "port": null,
+      "endpoint": null,
+      "startProject": "apps\\contoso-legacy-bank-batch\\src\\Contoso.LegacyBank.Batch\\bin\\Release\\Contoso.LegacyBank.Batch.exe"
+    }
+  ]
+}

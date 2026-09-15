@@ -1,0 +1,15 @@
+[submodule "apps/contoso-legacy-bank-portal"]
+	path = apps/contoso-legacy-bank-portal
+	url = https://github.com/AdonisLL/contoso-legacy-bank-portal.git
+[submodule "apps/contoso-legacy-bank-accounts"]
+	path = apps/contoso-legacy-bank-accounts
+	url = https://github.com/AdonisLL/contoso-legacy-bank-accounts.git
+[submodule "apps/contoso-legacy-bank-statements"]
+	path = apps/contoso-legacy-bank-statements
+	url = https://github.com/AdonisLL/contoso-legacy-bank-statements.git
+[submodule "apps/contoso-legacy-bank-documents"]
+	path = apps/contoso-legacy-bank-documents
+	url = https://github.com/AdonisLL/contoso-legacy-bank-documents.git
+[submodule "apps/contoso-legacy-bank-batch"]
+	path = apps/contoso-legacy-bank-batch
+	url = https://github.com/AdonisLL/contoso-legacy-bank-batch.git
