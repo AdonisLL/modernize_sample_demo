@@ -1,5 +1,6 @@
 {
   "schemaVersion": 1,
+  "releaseTag": "legacy-baseline-v1",
   "database": {
     "instance": "(localdb)\\MSSQLLocalDB",
     "name": "ContosoLegacyBank"
