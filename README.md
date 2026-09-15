@@ -93,6 +93,15 @@ The [modernization lab](docs/modernization-lab.md) provides:
 - GitHub Copilot and MCP-assisted research guidance;
 - behavior-parity and before/after evidence templates.
 
+The [multi-repository modernization scenarios](docs/multi-repository-modernization.md)
+show how to:
+
+- open all five application repositories in one VS Code multi-root workspace;
+- use Copilot Spaces on GitHub.com for shared cross-repository planning;
+- publish an approved roadmap as a hub epic and repository-owned issues;
+- extract legacy capabilities into evidence-backed specifications and apply
+  GitHub Spec Kit to bounded modernization changes.
+
 The proposed Azure destination is documented separately in [Azure target architecture](docs/azure-target-architecture.md). The legacy baseline does not require an Azure subscription and does not deploy cloud resources.
 
 ## Repository model
@@ -105,6 +114,7 @@ Known-good component revisions and local ports are recorded in [`compatibility.j
 
 - [Architecture](docs/architecture.md)
 - [Modernization lab](docs/modernization-lab.md)
+- [Multi-repository modernization scenarios](docs/multi-repository-modernization.md)
 - [Azure target architecture](docs/azure-target-architecture.md)
 - [Troubleshooting](docs/troubleshooting.md)
 

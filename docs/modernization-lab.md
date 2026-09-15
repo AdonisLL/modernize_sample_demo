@@ -14,6 +14,11 @@ Official references:
 
 Product commands and supported scenarios change. Recheck the official documentation before running a workshop rather than copying an old command from this repository.
 
+For enterprise application estates split across repositories, continue with
+[Multi-repository modernization scenarios](multi-repository-modernization.md).
+It covers VS Code multi-root context, GitHub.com planning and issues, and
+capability specifications with GitHub Spec Kit.
+
 ## Baseline evidence
 
 Before asking an agent to change code:

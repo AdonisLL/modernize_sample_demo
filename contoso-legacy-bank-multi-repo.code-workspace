@@ -1,0 +1,35 @@
+{
+  "folders": [
+    {
+      "name": "Portal - WinForms",
+      "path": "apps\\contoso-legacy-bank-portal"
+    },
+    {
+      "name": "Accounts - WCF and LocalDB",
+      "path": "apps\\contoso-legacy-bank-accounts"
+    },
+    {
+      "name": "Statements - Web API 2",
+      "path": "apps\\contoso-legacy-bank-statements"
+    },
+    {
+      "name": "Documents - PDF Worker",
+      "path": "apps\\contoso-legacy-bank-documents"
+    },
+    {
+      "name": "Batch - CSV Importer",
+      "path": "apps\\contoso-legacy-bank-batch"
+    }
+  ],
+  "settings": {
+    "workbench.editor.labelFormat": "medium",
+    "git.autoRepositoryDetection": "subFolders"
+  },
+  "extensions": {
+    "recommendations": [
+      "github.copilot",
+      "github.copilot-chat",
+      "ms-dotnettools.csdevkit"
+    ]
+  }
+}

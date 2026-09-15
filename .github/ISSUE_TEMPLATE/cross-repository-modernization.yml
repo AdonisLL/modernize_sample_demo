@@ -1,0 +1,60 @@
+name: Cross-repository modernization epic
+description: Coordinate an application-wide modernization plan across component repositories.
+title: "[MODERNIZATION] "
+labels:
+  - modernization
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this issue for application-wide decisions and dependency tracking. Create implementation issues in the repository that owns each change.
+  - type: input
+    id: baseline
+    attributes:
+      label: Baseline release or revisions
+      description: Tag or compatibility manifest used for the assessment.
+      placeholder: legacy-baseline-v1
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Target outcome
+      description: Describe the approved future state and measurable business outcome.
+    validations:
+      required: true
+  - type: textarea
+    id: repositories
+    attributes:
+      label: Repositories in scope
+      description: List every repository and its role.
+    validations:
+      required: true
+  - type: textarea
+    id: decisions
+    attributes:
+      label: Approved and open decisions
+      description: Separate approved decisions from unresolved architecture or business questions.
+    validations:
+      required: true
+  - type: textarea
+    id: waves
+    attributes:
+      label: Modernization waves
+      description: List dependency-ordered waves and repository work-package IDs.
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Cross-repository dependencies
+      description: Use fully qualified issue links and identify contract producers and consumers.
+    validations:
+      required: true
+  - type: textarea
+    id: parity
+    attributes:
+      label: Parity, coexistence, and rollback
+      description: Define end-to-end evidence, coexistence requirements, cutover conditions, and rollback.
+    validations:
+      required: true
