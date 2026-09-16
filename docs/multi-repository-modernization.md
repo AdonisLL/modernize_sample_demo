@@ -27,6 +27,10 @@ Use the hub as the system-of-record for application-wide decisions:
 Cross-repository context does not make a multi-repository change atomic. Each
 repository has independent permissions, branches, CI, releases, and rollback.
 
+When the goal is to replace the estate with a new application rather than
+upgrade each component in place, use the
+[Greenfield cloud-native replacement playbook](greenfield-cloud-native-replacement-playbook.md).
+
 ## Scenario 1: Visual Studio Code multi-repository assessment
 
 ### Goal

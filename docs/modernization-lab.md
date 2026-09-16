@@ -19,6 +19,10 @@ For enterprise application estates split across repositories, continue with
 It covers VS Code multi-root context, GitHub.com planning and issues, and
 capability specifications with GitHub Spec Kit.
 
+For a greenfield cloud-native application that incrementally replaces the
+legacy estate, continue with the
+[Greenfield cloud-native replacement playbook](greenfield-cloud-native-replacement-playbook.md).
+
 ## Baseline evidence
 
 Before asking an agent to change code:

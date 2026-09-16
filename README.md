@@ -116,6 +116,7 @@ Known-good component revisions and local ports are recorded in [`compatibility.j
 - [Architecture](docs/architecture.md)
 - [Modernization lab](docs/modernization-lab.md)
 - [Multi-repository modernization scenarios](docs/multi-repository-modernization.md)
+- [Greenfield cloud-native replacement playbook](docs/greenfield-cloud-native-replacement-playbook.md)
 - [Azure target architecture](docs/azure-target-architecture.md)
 - [Troubleshooting](docs/troubleshooting.md)
 
