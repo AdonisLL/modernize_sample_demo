@@ -60,19 +60,141 @@ Before assessment:
 
 ### Build the agent context
 
-In VS Code Chat:
+There are two related but different VS Code workflows. Use **multi-root Chat**
+for interactive questions across the whole workspace. Use the **Agents
+window** when you want a longer-running agent session with one explicit
+execution repository.
 
-- use `#codebase` when you want workspace indexing to find relevant code;
-- explicitly attach high-value folders, contracts, configuration, tests, and
-  architecture documents when they must not be omitted;
-- in the Agents window, select one repository as the **primary execution
-  workspace**, then attach the other repositories as additional context;
-- attach the hub architecture and compatibility files to anchor system-wide
-  facts.
+#### Option A: Ask cross-repository questions in Chat
 
-The primary workspace determines where an agent runs and changes files.
-Attached repositories provide context; do not assume they all become writable
-execution roots in one agent session.
+1. Open `contoso-legacy-bank-multi-repo.code-workspace`.
+2. Open the Chat view.
+3. Start the prompt with `#codebase` when you want VS Code workspace indexing
+   to locate relevant files across all five roots.
+4. State that the repositories form one application and name the flow you want
+   traced.
+5. Add specific files or folders when they are required evidence.
+
+Example:
+
+> #codebase Analyze the statement-generation workflow across the Portal,
+> Accounts, Statements, and Documents repositories. Trace the request from the
+> WinForms event through WCF and Web API 2 to the JSON job and generated PDF.
+> Remain read-only. Cite repository paths for every contract and consumer.
+
+`#codebase` means "search the indexed workspace for relevant context." It does
+not guarantee that every file in every repository is sent to the model. The
+context window is finite, so VS Code selects files it considers relevant.
+
+Use `#codebase` for:
+
+- discovering where a capability is implemented;
+- finding producers and consumers of a contract;
+- comparing patterns across repositories;
+- locating configuration, tests, and dependencies;
+- answering questions when you do not already know the important files.
+
+Do not rely on `#codebase` alone when a particular file must be considered.
+
+#### Add required evidence explicitly
+
+In the Chat view, select **Add Context**, then choose **Files & Folders**, or
+drag files and folders from Explorer into Chat.
+
+For an application-wide Contoso assessment, explicitly attach:
+
+| Purpose | Context to attach |
+|---|---|
+| Current architecture | Hub `docs\architecture.md` |
+| Verified repository revisions | Hub `compatibility.json` |
+| Modernization rules | Hub `docs\modernization-lab.md` and `.github\copilot-instructions.md` |
+| WCF producer contract | Accounts `src\Contoso.LegacyBank.Accounts.Contracts` |
+| WCF consumers | Portal `src\...\Services`; Statements `src\...\Services`; Batch `src\...` |
+| Statement file contract | Statements `docs\statement-job-schema.md`; Documents `Models` and `samples` |
+| Runtime configuration | Component `App.config` and `Web.config` files |
+| Behavior evidence | Component test projects and sample data |
+
+If the hub file is not visible as a workspace root, use **Add Context →
+Files & Folders** and browse to the hub path, or open the file first and attach
+the active editor tab.
+
+Explicit attachment means "this evidence must be considered." It is useful
+for contracts, configuration, tests, and architecture decisions that a
+relevance search might otherwise omit.
+
+Example:
+
+> Using the attached WCF contract, all three attached consumer implementations,
+> architecture.md, and compatibility.json, build a producer/consumer matrix.
+> Identify operation, DTO, fault, endpoint, versioning, coexistence, and
+> migration-order requirements. Treat attached files as authoritative for the
+> recorded baseline revision.
+
+#### Option B: Start a session in the Agents window
+
+When starting an agent session, VS Code asks you to choose a folder or
+repository. The first selection is the **primary execution workspace**.
+
+Choose the primary workspace based on the intended output:
+
+| Session goal | Recommended primary workspace |
+|---|---|
+| Read-only application assessment or hub documentation | `modernize_sample_demo` hub |
+| WCF-to-REST implementation | `contoso-legacy-bank-accounts` |
+| Statement API migration | `contoso-legacy-bank-statements` |
+| WinForms-to-Blazor implementation | `contoso-legacy-bank-portal` |
+| PDF worker modernization | `contoso-legacy-bank-documents` |
+| Batch modernization | `contoso-legacy-bank-batch` |
+
+For an analysis-only session:
+
+1. Open the Agents window and start a new session.
+2. Select the `modernize_sample_demo` hub as the primary workspace.
+3. Attach each component repository with **Folder** or **Repository**.
+4. Attach `docs\architecture.md`, `compatibility.json`, and the modernization
+   lab.
+5. State: "Remain read-only; write the approved assessment only to the hub."
+
+For a repository implementation session:
+
+1. Select the repository that will own the code change as primary.
+2. Attach the hub architecture, approved work package, and relevant producer
+   or consumer repositories.
+3. State which attached repositories are context only.
+4. Require the agent to stop if the change needs an unapproved edit in another
+   repository.
+
+Example:
+
+> The Accounts repository is the primary execution workspace. The Portal,
+> Statements, and Batch repositories are attached as read-only consumer
+> context. Implement only the approved REST compatibility endpoint in
+> Accounts. Do not edit consumers. If contract evidence shows the approved
+> design is incompatible, stop and report the conflict.
+
+#### What "primary" and "attached" mean
+
+| Term | Meaning |
+|---|---|
+| Primary execution workspace | Where the agent runs commands, creates branches, edits files, and produces commits for the session |
+| Attached repository | Additional source context the agent can inspect for the request |
+| Explicit file/folder context | Evidence intentionally included in the prompt |
+| `#codebase` | A request for workspace indexing to find likely relevant code |
+
+Attached repositories should not be treated as additional writable execution
+roots. Even if an environment technically exposes their files, the safe
+enterprise pattern is one owning repository per implementation session.
+
+#### Recommended analysis-only prompt
+
+> The hub is the primary workspace. The five component repositories are
+> attached as read-only context. Analyze the complete Contoso Legacy Bank
+> application. Use #codebase to discover relevant implementation, but treat
+> the attached architecture, compatibility manifest, contracts, configuration,
+> and tests as required evidence. Do not modify product code. Produce a
+> current-state inventory, contract/consumer matrix, business workflow map,
+> target architecture, decisions and unknowns, dependency-ordered waves, and
+> one repository-owned work package per independently reviewable change.
 
 ### Recommended assessment sequence
 
