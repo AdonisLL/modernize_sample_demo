@@ -97,6 +97,7 @@ The [multi-repository modernization scenarios](docs/multi-repository-modernizati
 show how to:
 
 - open all five application repositories in one VS Code multi-root workspace;
+- run an assessment-only multi-repository scan with the Modernize CLI;
 - use Copilot Spaces on GitHub.com for shared cross-repository planning;
 - publish an approved roadmap as a hub epic and repository-owned issues;
 - extract legacy capabilities into evidence-backed specifications and apply

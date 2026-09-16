@@ -1,0 +1,47 @@
+{
+  "repos": [
+    {
+      "name": "contoso-legacy-bank-portal",
+      "url": "https://github.com/AdonisLL/contoso-legacy-bank-portal.git",
+      "branch": "main",
+      "description": "Legacy .NET Framework 4.8 WinForms customer service portal."
+    },
+    {
+      "name": "contoso-legacy-bank-accounts",
+      "url": "https://github.com/AdonisLL/contoso-legacy-bank-accounts.git",
+      "branch": "main",
+      "description": "Legacy WCF, EF6, and SQL LocalDB account service."
+    },
+    {
+      "name": "contoso-legacy-bank-statements",
+      "url": "https://github.com/AdonisLL/contoso-legacy-bank-statements.git",
+      "branch": "main",
+      "description": "Legacy ASP.NET Web API 2 statement orchestration service."
+    },
+    {
+      "name": "contoso-legacy-bank-documents",
+      "url": "https://github.com/AdonisLL/contoso-legacy-bank-documents.git",
+      "branch": "main",
+      "description": "Legacy .NET Framework PDF document worker."
+    },
+    {
+      "name": "contoso-legacy-bank-batch",
+      "url": "https://github.com/AdonisLL/contoso-legacy-bank-batch.git",
+      "branch": "main",
+      "description": "Legacy .NET Framework CSV transaction batch importer."
+    }
+  ],
+  "apps": [
+    {
+      "identifier": "contoso-legacy-bank",
+      "description": "Five-repository legacy banking application used for modernization assessment.",
+      "repos": [
+        "contoso-legacy-bank-portal",
+        "contoso-legacy-bank-accounts",
+        "contoso-legacy-bank-statements",
+        "contoso-legacy-bank-documents",
+        "contoso-legacy-bank-batch"
+      ]
+    }
+  ]
+}

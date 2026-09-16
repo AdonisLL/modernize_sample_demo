@@ -4,11 +4,12 @@ Contoso Legacy Bank is intentionally split across repositories so an
 enterprise modernization exercise can distinguish application-wide planning
 from repository-scoped implementation.
 
-This guide covers three scenarios:
+This guide covers four scenarios:
 
 1. analyze all five application repositories in Visual Studio Code;
-2. plan across repositories on GitHub.com and publish the plan as issues;
-3. extract current behavior into evidence-backed capability specifications,
+2. run an assessment-only multi-repository scan with the Modernize CLI;
+3. plan across repositories on GitHub.com and publish the plan as issues;
+4. extract current behavior into evidence-backed capability specifications,
    then use GitHub Spec Kit for bounded modernization changes.
 
 ## Shared operating model
@@ -126,7 +127,161 @@ operations. Use the VS Code scenario for interactive investigation and the
 Modernize CLI when the enterprise requirement is governed portfolio-scale
 repeatability.
 
-## Scenario 2: GitHub.com planning with Copilot Spaces and issues
+## Scenario 2: Modernize CLI assessment only
+
+### Goal
+
+Assess all five repositories as one logical application and generate
+per-repository plus aggregated reports without creating a plan, changing code,
+or executing an upgrade.
+
+The Modernize CLI supports an **Assess, Plan, Execute** lifecycle. In this
+scenario, stop after **Assess**.
+
+### Install and authenticate
+
+On Windows:
+
+```powershell
+winget install GitHub.Copilot.modernization.agent
+```
+
+Open a new terminal, then verify and authenticate:
+
+```powershell
+modernize --version
+gh auth login
+gh auth status
+```
+
+The GitHub identity must be able to clone all five private repositories.
+
+### Repository configuration
+
+The hub includes `.github\modernize\repos.json`. It:
+
+- lists the five component repositories and their `main` branches;
+- groups them as the logical application `contoso-legacy-bank`;
+- uses GitHub URLs so the same configuration can support either local
+  execution or cloud delegation;
+- excludes the hub itself from code assessment because it contains
+  orchestration and documentation rather than an application project.
+
+Record the exact assessed commit SHAs in the final report. A branch name can
+move after assessment, while `compatibility.json` records the verified
+baseline revisions.
+
+### Run the assessment locally
+
+The repository wrapper runs only `modernize assess`:
+
+```powershell
+.\scripts\Invoke-ModernizeAssessment.ps1
+```
+
+It is equivalent to:
+
+```powershell
+modernize assess `
+  --source .github\modernize\repos.json `
+  --output-path artifacts\modernize-assessment `
+  --format markdown `
+  --delegate local
+```
+
+The script intentionally does not call:
+
+- `modernize plan create`;
+- `modernize plan execute`;
+- `modernize upgrade`.
+
+Generated reports are placed beneath `artifacts\modernize-assessment`, which
+is ignored by Git. Review and redact reports before copying selected results
+into a repository or issue.
+
+### Use interactive mode for full codebase insights
+
+The interactive workflow is useful when you want to select analysis domains
+and coverage:
+
+1. Run `modernize`.
+2. Select **Assess**.
+3. Select **From a config file**.
+4. Accept `.github\modernize\repos.json`.
+5. Keep all five repositories selected.
+6. Select the .NET **Upgrade** and **Cloud Readiness** domains.
+7. Select **Full analysis** to request codebase insights for architecture,
+   API contracts, configuration, business workflows, dependencies, and data
+   models.
+8. Select **Assess locally**.
+9. Choose an output directory.
+10. When assessment completes, review the aggregated and per-repository
+    reports, then return to the main menu instead of creating or executing a
+    plan.
+
+The documented .NET security domain coverage may differ from Java coverage.
+Do not treat absence of security findings as a security review.
+
+### Publish a summary to the hub epic
+
+The CLI can update a GitHub issue with an assessment summary:
+
+```powershell
+.\scripts\Invoke-ModernizeAssessment.ps1 `
+  -IssueUrl 'https://github.com/AdonisLL/modernize_sample_demo/issues/123'
+```
+
+Use the hub modernization epic rather than a component implementation issue
+for the aggregated summary. The detailed reports can contain file paths,
+dependency versions, configuration names, and architectural findings, so
+review them before wider distribution.
+
+### Optional cloud delegation
+
+For a larger portfolio, the CLI can delegate repository assessments to
+Copilot cloud agents in parallel:
+
+```powershell
+modernize assess `
+  --source .github\modernize\repos.json `
+  --output-path artifacts\modernize-assessment `
+  --format markdown `
+  --delegate cloud `
+  --wait
+```
+
+For these .NET Framework repositories, cloud delegation requires each
+repository to provide an appropriate Windows Copilot setup workflow and the
+necessary repository policy configuration. Local paths and non-GitHub
+repositories cannot be used for cloud delegation.
+
+Start with local execution for this demo. Move to cloud delegation only after
+the local assessment output and organization policies are understood.
+
+### Review checklist
+
+- [ ] All five repositories were assessed successfully.
+- [ ] Assessed commit SHAs were recorded.
+- [ ] Per-repository reports were generated.
+- [ ] The aggregated report treats the repositories as one application.
+- [ ] WCF producers and consumers were correlated.
+- [ ] File job and CSV contracts were identified.
+- [ ] LocalDB and Windows-only dependencies were identified.
+- [ ] Facts, recommendations, and unsupported assumptions were separated.
+- [ ] No plan or execution command was run.
+- [ ] Reports were reviewed before issue publication.
+
+### Expected handoff
+
+The assessment-only output should feed, but not automatically approve:
+
+- the GitHub.com planning scenario;
+- capability specifications;
+- architecture decisions;
+- dependency-ordered repository work packages;
+- later `modernize plan create` runs after human review.
+
+## Scenario 3: GitHub.com planning with Copilot Spaces and issues
 
 ### Goal
 
@@ -217,7 +372,7 @@ For a cross-repository wave, coordinate several repository-scoped sessions
 through the hub epic rather than asking one session to make an atomic change
 across every repository.
 
-## Scenario 3: Capability extraction and GitHub Spec Kit
+## Scenario 4: Capability extraction and GitHub Spec Kit
 
 ### Goal
 
@@ -355,6 +510,9 @@ evidence from every repository before a legacy contract is retired.
 - [GitHub Copilot cloud agent](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent)
 - [GitHub Copilot app modernization](https://learn.microsoft.com/en-us/azure/developer/github-copilot-app-modernization/)
 - [GitHub Copilot modernization agent](https://learn.microsoft.com/en-us/azure/developer/github-copilot-app-modernization/modernization-agent/overview)
+- [Modernize CLI quickstart](https://learn.microsoft.com/en-us/azure/developer/github-copilot-app-modernization/modernization-agent/quickstart)
+- [Modernize CLI commands](https://learn.microsoft.com/en-us/azure/developer/github-copilot-app-modernization/modernization-agent/cli-commands)
+- [Modernize CLI batch assessment](https://learn.microsoft.com/en-us/azure/developer/github-copilot-app-modernization/modernization-agent/batch-assess)
 - [GitHub Spec Kit](https://github.github.io/spec-kit/)
 - [Adopting Spec Kit in an existing project](https://github.github.io/spec-kit/guides/existing-projects.html)
 
